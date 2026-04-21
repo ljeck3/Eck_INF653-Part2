@@ -31,7 +31,7 @@ const CreateNewStudent = async (req, res) => {
 
 // Update Student
 const UpdateStudent = async (req, res) => {
-  const { id, firstName, lastName } = req.body;
+  const { id, firstName, lastName, email, course, enrolledDate } = req.body;
   if (!id) {
     return res.status(400).json({ message: "Student ID is required!" });
   }
@@ -42,6 +42,9 @@ const UpdateStudent = async (req, res) => {
     }
     if (firstName) student.firstName = firstName;
     if (lastName) student.lastName = lastName;
+    if (email) student.email = email;
+    if (course) student.course = course;
+    if (enrolledDate) student.enrolledDate = enrolledDate;
     const result = await student.save();
     res.json(result);
   } catch (error) {
