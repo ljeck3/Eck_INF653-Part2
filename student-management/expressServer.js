@@ -4,7 +4,6 @@ const express = require("express");
 //create an instance of the express application
 const app = express();
 const path = require("path");
-const PORT = 3000;
 const cors = require("cors");
 const { logger } = require("./middleware/logger.js");
 const errorHandler = require("./middleware/errorHandler.js");
