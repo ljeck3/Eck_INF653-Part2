@@ -10,7 +10,9 @@ const errorHandler = require("./middleware/errorHandler.js");
 const corsOptions = require("./config/corsOptions.js");
 const connectDB = require("./config/dbConfig.js");
 const mongoose = require("mongoose");
+const PORT = process.env.PORT || 3000;
 
+connectDB();
 
 //Built in middlerware functions
 app.use(express.urlencoded({ extended: false }));
@@ -73,6 +75,8 @@ app.get("/error-test", (req, res, next) => {
 });
 //------------------------------------------
 
+app.use("/students", require("./routes/api/student.js"));
+
 app.get("/*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "404.html"));
 });
@@ -83,4 +87,11 @@ app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
 });
