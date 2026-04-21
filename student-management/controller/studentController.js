@@ -15,14 +15,14 @@ const GetAllStudents = async (req, res) => {
 
 // Create New Student
 const CreateNewStudent = async (req, res) => {
-  const { firstName, lastName } = req.body;
-  if (!firstName || !lastName) {
+  const { firstName, lastName, email, course, enrolledDate } = req.body;
+  if (!firstName || !lastName || !email || !course || !enrolledDate) {
     return res
       .status(400)
       .json({ message: "First and Last Names are required!" });
   }
   try {
-    const result = await Student.create({ firstName, lastName });
+        const result = await Student.create({ firstName, lastName, email, course, enrolledDate });
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
