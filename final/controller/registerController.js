@@ -5,11 +5,11 @@ const handleNewUser = async (req, res) => {
   const { name, email, password } = req.body;
   
   if (!name || !email || !password) {
-    return res.status(400).json({ message: "Username and password are required." });
+    return res.status(400).json({ message: "Email and password are required." });
   }
  
   const duplicate = await User.findOne({ email: email }).exec();
-  if (duplicate) return res.status(409).json({ message: "Duplicate username." });
+  if (duplicate) return res.status(409).json({ message: "Duplicate email." });
  
   try {
     const hashedPwd = await bcrypt.hash(password, 10); // 10 is the salt round

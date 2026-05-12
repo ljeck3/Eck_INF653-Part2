@@ -75,7 +75,8 @@ app.get("/error-test", (req, res, next) => {
 });
 //------------------------------------------
 
-app.use('/register', require('./routes/register'));
+app.use('/api/auth/register', require('./routes/api/register'));
+app.use('/api/auth/login', require('./routes/api/auth'));
 
 app.get("/*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "404.html"));
