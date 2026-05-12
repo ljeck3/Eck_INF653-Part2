@@ -10,6 +10,7 @@ const errorHandler = require("./middleware/errorHandler.js");
 const corsOptions = require("./config/corsOptions.js");
 const connectDB = require("./config/dbConfig.js");
 const mongoose = require("mongoose");
+const jwt = require('jsonwebtoken')
 const PORT = process.env.PORT || 3000;
 
 connectDB();
