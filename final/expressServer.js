@@ -75,7 +75,7 @@ app.get("/error-test", (req, res, next) => {
 });
 //------------------------------------------
 
-app.use("/students", require("./routes/api/student.js"));
+app.use('/register', require('./routes/register'));
 
 app.get("/*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "404.html"));
