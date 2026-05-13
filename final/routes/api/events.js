@@ -6,7 +6,8 @@ const {
   CreateNewEvent,
   GetAllEvents,
   UpdateEvent,
-  DeleteEvent
+  DeleteEvent,
+  GetEvent
 } = require("../../controller/eventsController");
 
 router
@@ -16,6 +17,7 @@ router
 
 router
   .route("/:id")
+  .get(verifyJWT, GetEvent)
   .put(verifyJWT, adminAuth, UpdateEvent)
   .delete(verifyJWT, adminAuth, DeleteEvent);
 
