@@ -87,6 +87,8 @@ app.get('/api/test', verifyJWT, adminAuth, (req, res) => {
 app.use('/api/auth/register', require('./routes/api/register'));
 app.use('/api/auth/login', require('./routes/api/auth'));
 
+app.use('/api/events', require('./routes/api/events'));
+
 // app.use('/api/bookings', verifyJWT, require('./routes/api/bookings'));
 
 
