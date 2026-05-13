@@ -8,6 +8,7 @@ const cors = require("cors");
 const { logger } = require("./middleware/logger.js");
 const errorHandler = require("./middleware/errorHandler.js");
 const verifyJWT = require("./middleware/jwt.js");
+const adminAuth = require("./middleware/adminAuth.js");
 const corsOptions = require("./config/corsOptions.js");
 const connectDB = require("./config/dbConfig.js");
 const mongoose = require("mongoose");
@@ -78,8 +79,8 @@ app.get("/error-test", (req, res, next) => {
   next(new Error("This is a test error"));
 });
 //jwt
-app.get('/api/test', verifyJWT, (req, res) => {
-    res.json({ message: `Hello ${req.user}` });
+app.get('/api/test', verifyJWT, adminAuth, (req, res) => {
+    res.json({ message: `Hello ${req.user.email}` });
 });
 //------------------------------------------
 
@@ -96,11 +97,6 @@ app.get("/*splat", (req, res) => {
 
 //Custom error middleware function
 app.use(errorHandler);
-
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
