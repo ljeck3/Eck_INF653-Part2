@@ -13,9 +13,11 @@ router
   .route("/")
   .get(verifyJWT, GetAllEvents)
   .post(verifyJWT, adminAuth, CreateNewEvent)
+
+router
+  .route("/:id")
   .put(verifyJWT, adminAuth, UpdateEvent)
   .delete(verifyJWT, adminAuth, DeleteEvent);
 
-//router.route("/:id").get(GetEvent);
 
 module.exports = router;
