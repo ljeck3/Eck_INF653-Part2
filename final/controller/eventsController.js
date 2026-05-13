@@ -31,7 +31,8 @@ const GetAllEvents = async (req, res) => {
 
 // Update Event
 const UpdateEvent = async (req, res) => {
-  const { id, title, description, category, venue, date, time, seatCapacity, bookedSeats, price } = req.body;
+  const { id } = req.params;
+  const { title, description, category, venue, date, time, seatCapacity, bookedSeats, price } = req.body;
   if (!id) {
     return res.status(400).json({ message: "Event ID is required!" });
   }
@@ -58,7 +59,7 @@ const UpdateEvent = async (req, res) => {
 
 // Delete Event
 const DeleteEvent = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   if (!id) {
     return res.status(400).json({ message: "Event ID is required!" });
   }
