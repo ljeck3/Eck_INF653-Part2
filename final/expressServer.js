@@ -7,10 +7,10 @@ const path = require("path");
 const cors = require("cors");
 const { logger } = require("./middleware/logger.js");
 const errorHandler = require("./middleware/errorHandler.js");
+const verifyJWT = require("./middleware/jwt.js");
 const corsOptions = require("./config/corsOptions.js");
 const connectDB = require("./config/dbConfig.js");
 const mongoose = require("mongoose");
-const jwt = require('jsonwebtoken')
 const PORT = process.env.PORT || 3000;
 
 connectDB();
@@ -70,14 +70,25 @@ app.get(
   },
 );
 
-//Intentional error test route-------------
+//ROUTES
+
+//Intentional test routes------------
+//error
 app.get("/error-test", (req, res, next) => {
   next(new Error("This is a test error"));
+});
+//jwt
+app.get('/api/test', verifyJWT, (req, res) => {
+    res.json({ message: `Hello ${req.user}` });
 });
 //------------------------------------------
 
 app.use('/api/auth/register', require('./routes/api/register'));
 app.use('/api/auth/login', require('./routes/api/auth'));
+
+// app.use('/api/bookings', verifyJWT, require('./routes/api/bookings'));
+
+
 
 app.get("/*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "404.html"));
