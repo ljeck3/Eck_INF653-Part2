@@ -4,14 +4,15 @@ const express = require("express");
 const router = express.Router();
 const {
   CreateNewEvent,
-  GetAllEvents
+  GetAllEvents,
+  UpdateEvent
 } = require("../../controller/eventsController");
 
 router
   .route("/")
   .get(verifyJWT, GetAllEvents)
   .post(verifyJWT, adminAuth, CreateNewEvent)
-  //.put(UpdateEvent)
+  .put(verifyJWT, adminAuth, UpdateEvent)
   //.delete(DeleteEvent);
 
 //router.route("/:id").get(GetEvent);
