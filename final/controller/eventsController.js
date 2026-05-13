@@ -56,8 +56,27 @@ const UpdateEvent = async (req, res) => {
   }
 };
 
+// Delete Event
+const DeleteEvent = async (req, res) => {
+  const { id } = req.body;
+  if (!id) {
+    return res.status(400).json({ message: "Event ID is required!" });
+  }
+  try {
+    const event = await Event.findById(id).exec();
+    if (!event) {
+      return res.status(404).json({ message: `No event matches ID ${id}` });
+    }
+    const result = await Event.deleteOne({ _id: id });
+    res.json({ message: "Event deleted", result });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   CreateNewEvent,
   GetAllEvents,
-  UpdateEvent
+  UpdateEvent,
+  DeleteEvent
 };

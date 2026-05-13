@@ -5,7 +5,8 @@ const router = express.Router();
 const {
   CreateNewEvent,
   GetAllEvents,
-  UpdateEvent
+  UpdateEvent,
+  DeleteEvent
 } = require("../../controller/eventsController");
 
 router
@@ -13,7 +14,7 @@ router
   .get(verifyJWT, GetAllEvents)
   .post(verifyJWT, adminAuth, CreateNewEvent)
   .put(verifyJWT, adminAuth, UpdateEvent)
-  //.delete(DeleteEvent);
+  .delete(verifyJWT, adminAuth, DeleteEvent);
 
 //router.route("/:id").get(GetEvent);
 
