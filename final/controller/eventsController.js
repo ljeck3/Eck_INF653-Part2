@@ -13,6 +13,11 @@ const CreateNewEvent = async (req, res) => {
       .status(400)
       .json({ message: "Seat capacity must be greater than 0" });
   }
+  if (price < 0) {
+    return res
+      .status(400)
+      .json({ message: "Price must not be negative" });
+  }
   try {
     const result = await Event.create({ title, description, category, venue, date, time, seatCapacity, bookedSeats, price });
     res.status(201).json(result);
