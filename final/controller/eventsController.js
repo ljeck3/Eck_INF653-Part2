@@ -3,7 +3,7 @@ const Event = require("../model/Event");
 // Create New Event
 const CreateNewEvent = async (req, res) => {
   const { title, description, category, venue, date, time, seatCapacity, bookedSeats, price } = req.body;
-  if (!title || !description || !category || !venue || !date || !time || !seatCapacity || !bookedSeats || !price ) {
+  if (!title || !description || !category || !venue || !date || !time || !seatCapacity || !price ) {
     return res
       .status(400)
       .json({ message: "Fill out all required information" });
@@ -67,6 +67,9 @@ const DeleteEvent = async (req, res) => {
     const event = await Event.findById(id).exec();
     if (!event) {
       return res.status(404).json({ message: `No event matches ID ${id}` });
+    }
+    if (event.bookedSeats !== 0) {
+      return res.status(404).json({ message: `Remove bookings for this event before deleting.` });
     }
     const result = await Event.deleteOne({ _id: id });
     res.json({ message: "Event deleted", result });
