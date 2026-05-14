@@ -12,12 +12,12 @@ const {
 
 router
   .route("/")
-  .get(verifyJWT, GetAllEvents)
+  .get(GetAllEvents)
   .post(verifyJWT, adminAuth, CreateNewEvent)
 
 router
   .route("/:id")
-  .get(verifyJWT, GetEvent)
+  .get(GetEvent)
   .put(verifyJWT, adminAuth, UpdateEvent)
   .delete(verifyJWT, adminAuth, DeleteEvent);
 
