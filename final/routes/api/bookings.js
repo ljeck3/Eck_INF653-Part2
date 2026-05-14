@@ -12,7 +12,7 @@ const {
 router
   .route("/")
   .get(verifyJWT, GetAllBookings)
-  .post(verifyJWT, adminAuth, CreateNewBooking)
+  .post(verifyJWT, CreateNewBooking)
 
 router
   .route("/:id")

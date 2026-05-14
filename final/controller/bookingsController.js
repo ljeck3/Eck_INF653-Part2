@@ -52,11 +52,12 @@ const DeleteBooking = async (req, res) => {
 // Get One Booking
 const GetBooking = async (req, res) => {
   const { id } = req.params;
+  const user = req.user.id;
   if (!id) {
     return res.status(400).json({ message: "Booking ID is required!" });
   }
   try {
-    const booking = await Booking.findById(id).exec();
+    const booking = await Booking.findOne({ _id: id, user: req.user.id }).exec();
     if (!booking) {
       return res.status(404).json({ message: `No booking matches ID ${id}` });
     }
