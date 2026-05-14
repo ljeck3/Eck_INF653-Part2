@@ -5,8 +5,8 @@ This API allows a user to book a ticket to an event. This project is intended to
 
 ## Getting Started
 
-### Viewing the Website
-Method 1: Visit online: <br>
+### Using the API
+Method 1: Online: https://eck-inf653-part2-1.onrender.com <br>
 Method 2: Run locally:
 ```
 npm install
@@ -21,7 +21,9 @@ npm start
 
 ## List of Endpoints
 * /api/events
+* /api/events/:id
 * /api/bookings
+* /api/bookings/:id
 * /api/auth/register
 * /api/auth/login
 
