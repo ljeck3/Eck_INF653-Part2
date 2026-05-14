@@ -91,8 +91,12 @@ app.use('/api/events', require('./routes/api/events'));
 app.use('/api/bookings', require('./routes/api/bookings'));
 
 
-app.get("/*splat", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "404.html"));
+app.all("/*splat", (req, res) => {
+  if (req.accepts("application/json")) {
+    res.status(404).json({ error: "404 Not Found" });
+  } else {
+    res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  }
 });
 
 //Custom error middleware function
