@@ -19,8 +19,9 @@ const CreateNewBooking = async (req, res) => {
 
 // Get All Bookings
 const GetAllBookings = async (req, res) => {
+  const user = req.user.id;
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find({ user: user });
     if (!bookings || bookings.length === 0) {
       return res.status(404).json({ message: "No bookings found!" });
     }
