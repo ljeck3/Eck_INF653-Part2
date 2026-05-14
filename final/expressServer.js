@@ -88,9 +88,7 @@ app.use('/api/auth/register', require('./routes/api/register'));
 app.use('/api/auth/login', require('./routes/api/auth'));
 
 app.use('/api/events', require('./routes/api/events'));
-
-// app.use('/api/bookings', verifyJWT, require('./routes/api/bookings'));
-
+app.use('/api/bookings', require('./routes/api/bookings'));
 
 
 app.get("/*splat", (req, res) => {
