@@ -1,4 +1,5 @@
 const Booking = require("../model/Booking");
+const Event = require("../model/Event");
 
 // Create New Booking
 const CreateNewBooking = async (req, res) => {
@@ -11,6 +12,7 @@ const CreateNewBooking = async (req, res) => {
   }
   try {
     const result = await Booking.create({ user, event, quantity });
+    await Event.findByIdAndUpdate(event, { $inc: { bookedSeats: quantity } });
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -43,6 +45,7 @@ const DeleteBooking = async (req, res) => {
       return res.status(404).json({ message: `No booking matches ID ${id}` });
     }
     const result = await Booking.deleteOne({ _id: id });
+    await Event.findByIdAndUpdate(booking.event, { $inc: { bookedSeats: -booking.quantity } });
     res.json({ message: "Booking deleted", result });
   } catch (error) {
     res.status(500).json({ message: error.message });
