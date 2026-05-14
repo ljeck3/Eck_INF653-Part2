@@ -8,8 +8,13 @@ const CreateNewEvent = async (req, res) => {
       .status(400)
       .json({ message: "Fill out all required information" });
   }
+  if (seatCapacity <= 0) {
+    return res
+      .status(400)
+      .json({ message: "Seat capacity must be greater than 0" });
+  }
   try {
-        const result = await Event.create({ title, description, category, venue, date, time, seatCapacity, bookedSeats, price });
+    const result = await Event.create({ title, description, category, venue, date, time, seatCapacity, bookedSeats, price });
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -69,7 +74,7 @@ const DeleteEvent = async (req, res) => {
       return res.status(404).json({ message: `No event matches ID ${id}` });
     }
     if (event.bookedSeats !== 0) {
-      return res.status(404).json({ message: `Remove bookings for this event before deleting.` });
+      return res.status(400).json({ message: `Remove bookings for this event before deleting.` });
     }
     const result = await Event.deleteOne({ _id: id });
     res.json({ message: "Event deleted", result });
