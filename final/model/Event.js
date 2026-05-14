@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   time: { type: String},
   seatCapacity: { type: Number, required: true },
-  bookedSeats: { type: Number, default: 0 },
+  bookedSeats: { type: Number, default: 0, min:0 },
   price: { type: Number, required: true},
 });
  

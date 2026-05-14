@@ -10,6 +10,11 @@ const CreateNewBooking = async (req, res) => {
       .status(400)
       .json({ message: "Fill out all required information" });
   }
+  if (quantity <= 0 ) {
+    return res
+      .status(400)
+      .json({ message: "Quantity must be greater than 0" });
+  }
   try {
     const result = await Booking.create({ user, event, quantity });
     await Event.findByIdAndUpdate(event, { $inc: { bookedSeats: quantity } });
