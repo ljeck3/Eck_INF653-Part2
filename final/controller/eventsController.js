@@ -28,8 +28,12 @@ const CreateNewEvent = async (req, res) => {
 
 // Get All Events
 const GetAllEvents = async (req, res) => {
+  const { category, date } = req.query;
+  const filter =  {};
+  if (category) filter.category = category;
+  if (date) filter.date = date;
   try {
-    const events = await Event.find();
+    const events = await Event.find(filter);
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No events found!" });
     }
